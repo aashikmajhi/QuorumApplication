@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'basic',
-        enum: ['basic', 'manager', 'admin']
+        enum: ['basic','admin']
     }
 }, { timestamps: true });
 

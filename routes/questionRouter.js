@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const question = require('../models/question');
+const question = require('../models/Question');
 const auth = require('../routes/auth');
 
 router.route('/')
@@ -46,61 +46,119 @@ router.route('/:question_id')
             }).catch(next);
     })
 
-
-router.route('/:question_id/notes')
+router.route('/:question_id/answers')
     .get((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                res.json(question.notes);
+                res.json(question.answers);
             }).catch(next);
     })
     .post((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                question.notes.push(req.body);
+                question.answers.push(req.body);
                 question.save()
-                    .then(updatequestion => {
-                        res.json(updatequestion.notes);
+                    .then(updateQuestion => {
+                        res.json(updateQuestion.answers);
                     }).catch(next);
             }).catch(next);
     })
     .delete((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                question.notes = [];
+                question.answers = [];
                 question.save()
-                    .then(updatequestion => {
-                        res.json(updatequestion.notes);
+                    .then(updateQuestion => {
+                        res.json(updateQuestion.answers);
                     }).catch(next);
             }).catch(next);
     })
-router.route('/:question_id/notes/:note_id')
+
+router.route('/:question_id/answers/:answer_id')
     .get((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                res.json(question.notes.id(req.params.note_id));
+                res.json(question.answers.id(req.params.answer_id));
             }).catch(next);
     })
     .put((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                let note = question.notes.id(req.params.note_id);
-                note.text = req.body.text;
+                let answer = question.answers.id(req.params.answer_id);
+                answer.text = req.body.text;
                 question.save()
-                    .then(updatequestion => {
-                        res.json(question.notes.id(req.params.note_id));
+                    .then(updateQuestion => {
+                        res.json(question.answers.id(req.params.answer_id));
                     }).catch(next);
             }).catch(next);
     })
     .delete((req, res, next) => {
         question.findById(req.params.question_id)
             .then(question => {
-                question.notes = question.notes.filter((note) => {
-                    return note.id !== req.params.note_id;
+                question.answers = question.answers.filter((answer) => {
+                    return answer.id !== req.params.answer_id;
                 })
                 question.save()
-                    .then(updatequestion => {
-                        res.json(question.notes);
+                    .then(updateQuestion => {
+                        res.json(question.answers);
+                    }).catch(next);
+            }).catch(next);
+    })
+
+router.route('/:question_id/comments')
+    .get((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                res.json(question.comments);
+            }).catch(next);
+    })
+    .post((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                question.comments.push(req.body);
+                question.save()
+                    .then(updateQuestion => {
+                        res.json(updateQuestion.comments);
+                    }).catch(next);
+            }).catch(next);
+    })
+    .delete((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                question.comments = [];
+                question.save()
+                    .then(updateQuestion => {
+                        res.json(updateQuestion.comments);
+                    }).catch(next);
+            }).catch(next);
+    })
+router.route('/:question_id/comments/:comment_id')
+    .get((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                res.json(question.comments.id(req.params.comment_id));
+            }).catch(next);
+    })
+    .put((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                let comment = question.comments.id(req.params.comment_id);
+                comment.text = req.body.text;
+                question.save()
+                    .then(updateQuestion => {
+                        res.json(question.comments.id(req.params.comment_id));
+                    }).catch(next);
+            }).catch(next);
+    })
+    .delete((req, res, next) => {
+        question.findById(req.params.question_id)
+            .then(question => {
+                question.comments = question.comments.filter((comment) => {
+                    return comment.id !== req.params.comment_id;
+                })
+                question.save()
+                    .then(updateQuestion => {
+                        res.json(question.comments);
                     }).catch(next);
             }).catch(next);
     })

@@ -21,20 +21,6 @@ function verifyUser(req, res, next) {
     })
 }
 
-function verifyManager(req, res, next) {
-    if (!req.user) {
-        let err = new Error('Unauthorized information');
-        err.status = 401;
-        return next(err);
-    }
-    else if (req.user.role == 'basic') {
-        let err = new Error('Forbidden');
-        err.status = 403;
-        return next(err);
-    }
-    next();
-}
-
 function verifyAdmin(req, res, next) {
     if (!req.user) {
         let err = new Error('No authenticated information');
@@ -51,6 +37,5 @@ function verifyAdmin(req, res, next) {
 
 module.exports = {
     verifyUser,
-    verifyManager,
     verifyAdmin
 }
