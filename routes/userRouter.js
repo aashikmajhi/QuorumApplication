@@ -9,8 +9,8 @@ const validation = require('../validation');
 
 router.post('/register', (req, res, next) => {
     const { errors, isValid } = validation.registerInput(req.body);
-    if (isValid) {
-        res.status(404).json({
+    if (!isValid) {
+        res.status(400).json({
             status: 'error',
             message: errors
         });
@@ -23,7 +23,7 @@ router.post('/register', (req, res, next) => {
                 err.status = 401;
                 return next(err);
             }
-            bcrypt.hash(password, 8)
+            bcrypt.hash(password, 10)
                 .then(hashed => {
                     User.create({ username, password: hashed, firstName, lastName, role })
                         .then((user) => {

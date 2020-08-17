@@ -4,16 +4,20 @@
   "description": "project for 5th Semester",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll --coverage"
   },
   "author": "Aashik Majhi",
   "license": "ISC",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jest": "^26.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2",
+    "validator": "^13.1.1"
   }
 }
