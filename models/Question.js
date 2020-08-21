@@ -40,10 +40,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // multimedia: {
-    //     type: multimedia,
-    //     required: false
-    // },
+    multimedia: {
+        type: String,
+        required: false
+    },
     date: {
         type: Date,
         default: Date.now

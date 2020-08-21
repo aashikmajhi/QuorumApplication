@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Category = require('../models/Category');
 const question = require('../models/question');
+const auth = require('./auth');
 
 router.route('/')
     .get((req, res, next) => {
@@ -11,13 +12,13 @@ router.route('/')
                 res.json(categories);
             }).catch(next);
     })
-    .post((req, res, next) => {
+    .post(auth.verifyAdmin,(req, res, next) => {
         Category.create(req.body)
             .then(category => {
                 res.status(201).json(category);
             }).catch(next);
     })
-    .delete((req, res, next) => {
+    .delete(auth.verifyAdmin,(req, res, next) => {
         Category.deleteMany()
             .then(reply => {
                 res.json(reply);
@@ -31,13 +32,13 @@ router.route('/:category_id')
                 res.json(categories);
             }).catch(next);
     })
-    .put((req, res, next) => {
+    .put(auth.verifyAdmin,(req, res, next) => {
         Category.findByIdAndUpdate(req.params.category_id, { $set: req.body }, { new: true })
             .then(category => {
                 req.json(category);
             }).catch(next);
     })
-    .delete((req, res, next) => {
+    .delete(auth.verifyAdmin,(req, res, next) => {
         Category.deleteOne({ _id: req.params.category_id })
             .then(reply => {
                 res.json(reply);
@@ -64,7 +65,7 @@ router.route('/:category_id/questions')
                     }).catch(next);
             }).catch(next);
     })
-    .delete((req, res, next) => {
+    .delete(auth.verifyAdmin,(req, res, next) => {
         Category.findById(req.params.category_id)
             .then(category => {
                 question.deleteMany({ _id: { $in: category.question } })
@@ -109,7 +110,7 @@ router.route('/:category_id/questions/:question_id')
                 }
             }).catch(next);
     })
-    .delete((req, res, next) => {
+    .delete(auth.verifyAdmin,(req, res, next) => {
         Category.findById(req.params.category_id)
             .then(category => {
                 if (category.questions.includes(req.params.question_id)) {
