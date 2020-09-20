@@ -1,16 +1,19 @@
 const express = require('express');
-//const mongoose = require('mongoose');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const auth = require('../routes/auth');
+
 
 const validation = require('../validation');
+const { route } = require('./questionRouter');
 
 router.post('/register', (req, res, next) => {
     const { errors, isValid } = validation.registerInput(req.body);
     if (!isValid) {
-        res.status(400).json({
+
+        return res.status(400).json({
             status: 'error',
             message: errors
         });
@@ -19,9 +22,10 @@ router.post('/register', (req, res, next) => {
     User.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
-                let err = new Error('User already exists!');
-                err.status = 401;
-                return next(err);
+                return res.status(401).json({
+                    status: 'error',
+                    message: 'User already exists'
+                })
             }
             bcrypt.hash(password, 10)
                 .then(hashed => {
@@ -38,16 +42,19 @@ router.post('/login', (req, res, next) => {
     User.findOne({ username })
         .then((user) => {
             if (!user) {
-                let err = new Error('User not Found!');
-                err.status = 401;
-                return next(err);
+
+                return res.status(401).json({
+                    status: 'error',
+                    message: 'User not found'
+                })
             }
             bcrypt.compare(password, user.password)
                 .then((isMatched) => {
                     if (!isMatched) {
-                        let err = new Error('Password does not exist!');
-                        err.status = 401;
-                        return next(err);
+                        return res.status(401).json({
+                            status: 'error',
+                            message: 'Password does not exist'
+                        })
                     }
                     //using jwt
                     let payload = {
@@ -63,10 +70,42 @@ router.post('/login', (req, res, next) => {
                         }
                         res.json({
                             status: 'Login Successful',
-                            token: `Bearer ${token}`
+                            token: `Bearer ${token}`,
+                            owner: user.id
                         });
                     });
                 }).catch(next);
+        }).catch(next);
+})
+
+router.route('/')
+.get((req, res, next) => {
+    User.find()
+        .then((user) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(user);
+        }).catch(next);
+})
+
+router.route('/:user_id')
+.get((req,res,next)=>{
+    User.findById(req.params.user_id)
+    .then((user)=>{
+        res.json(user);
+    }).catch(next);
+})
+
+.put((req, res, next) => { 
+    User.findByIdAndUpdate(req.params.user_id, { $set: req.body }, { new: true })
+        .then(user => {
+            res.json(user);
+        }).catch(next);
+})
+.delete (auth.verifyAdmin, (req, res, next) => {
+    User.deleteOne({ owner: req.user.id })
+        .then(reply => {
+            res.json(reply);
         }).catch(next);
 })
 

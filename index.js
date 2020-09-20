@@ -36,10 +36,10 @@ app.use((req, res, next) => {
     next(err);
 })
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.log(err.stack);
     res.status(err.status || 500);
-    res.json({
+    return res.json({
         status: 'error',
         message: err.message
     })

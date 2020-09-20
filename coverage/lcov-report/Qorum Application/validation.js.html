@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">23.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>3/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">23.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>3/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,51 +83,51 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const validator = require('validator');
 &nbsp;
-const registerInput = (data) =&gt; {
-    let errors = {};
+const registerInput = <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {
+    let errors = <span class="cstat-no" title="statement not covered" >{};</span>
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (data.username) {
-        if (!validator.isLength(data.username.trim(), { min: 4, max: 30 })) {
-            errors.username = 'Username must be between 4 to 30 charaters';
+<span class="cstat-no" title="statement not covered" >    if (data.username) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!validator.isLength(data.username.trim(), { min: 4, max: 30 })) {</span>
+<span class="cstat-no" title="statement not covered" >            errors.username = 'Username must be between 4 to 30 charaters';</span>
         }
     }
     else <span class="cstat-no" title="statement not covered" >errors.username = 'Username is required';</span>
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (data.password) {
-        if (!validator.isLength(data.password.trim(), { min: 6, max: 30 })) {
-            errors.password = 'Password must be between 6 to 30 characters';
+<span class="cstat-no" title="statement not covered" >    if (data.password) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!validator.isLength(data.password.trim(), { min: 6, max: 30 })) {</span>
+<span class="cstat-no" title="statement not covered" >            errors.password = 'Password must be between 6 to 30 characters';</span>
         }
     }
     else <span class="cstat-no" title="statement not covered" >errors.password = 'Password is  required';</span>
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
         errors,
         isValid: Object.keys(errors).length == 0
     }
@@ -142,7 +142,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 21 2020 09:06:56 GMT+0545 (Nepal Time)
+                at Sun Aug 23 2020 12:56:38 GMT+0545 (Nepal Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

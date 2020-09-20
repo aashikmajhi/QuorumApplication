@@ -34,10 +34,12 @@ const answerSchema = new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
     question: {
         type: String,
+        max: 500,
         required: true
     },
     desc: {
         type: String,
+        max:1000,
         required: true
     },
     multimedia: {
@@ -48,8 +50,11 @@ const questionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
     answers: [answerSchema],
-    comments: [commentSchema],
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -57,4 +62,4 @@ const questionSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('question', questionSchema);
+module.exports = mongoose.model('Question', questionSchema);

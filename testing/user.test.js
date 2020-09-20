@@ -39,8 +39,9 @@ describe('Test of User Route', () => {
                 firstName: 'test',
                 lastName: 'test'
             }).then((res) => {
-                console.log(res)
+                console.log(res.body)
                 expect(res.status).toBe(401)
+                expect(res.body.status).toBe('error')
             })
     })
 
@@ -90,6 +91,7 @@ describe('Validation of User', () => {
             }).then((res) => {
                 console.log(res.body)
                 expect(res.statusCode).toBe(401)
+                expect(res.body.status).toBe('error')
             })
     })
 
@@ -101,6 +103,7 @@ describe('Validation of User', () => {
             }).then((res) => {
                 console.log(res.body)
                 expect(res.statusCode).toBe(401)
+                expect(res.body.status).toBe('error')
             })
     })
 })
